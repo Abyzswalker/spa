@@ -1,0 +1,15 @@
+{
+  "name": "abyzs/spa",
+  "authors": [
+    {
+      "name": "abyzs",
+      "email": "abyzswalker@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Spa\\": "src/"
+    }
+  }
+}
