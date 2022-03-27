@@ -1,4 +1,4 @@
-#formBlock{
+#formBlock {
     height: 500px;
     width: 500px;
     position: absolute;
@@ -12,4 +12,63 @@
 }
 #collapseFormRegistration {
     padding-top: 10px;
+}
+#inputBlock {
+    padding-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+#inputForm {
+    height: 70px;
+    width: 1300px;
+}
+#inputForm>div {
+    display: inline-block;
+    vertical-align: top;
+    height: 70px;
+}
+#formSumma,
+#formSelect {
+    height: 50px;
+}
+#formComment {
+    width: 500px;
+}
+
+
+/*Table*/
+#tableBlock {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+table {
+    width: 100%;
+    border-collapse:separate;
+    border-spacing:0;
+}
+caption {
+    caption-side: top;
+}
+table, td, th {
+    border: 1px solid #595959;
+}
+td, th {
+    padding: 3px;
+    height: 25px;
+}
+th {
+    background-color: #7accee!important;
+}
+.td {
+    width: 30%;
+}
+.tdBtn {
+    width: 10%;
+}
+#summBody {
+    border-spacing: 10px;
+    border-collapse:separate;
 }

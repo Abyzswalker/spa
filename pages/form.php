@@ -1,4 +1,4 @@
-<div id="formBlock">
+<div class="formBlock" id="formBlock">
     <div><h2>Sign In</h2></div>
     <form id="formSignIn" method="post" action="">
         <div class="form-floating mb-3">

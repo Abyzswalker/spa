@@ -24,7 +24,7 @@ $(document).ready(function() {
                     var resp = JSON.parse(response);
 
                     if (resp.msg === 'signIn') {
-                        window.location.reload()
+                        document.location.reload();
                     } else if (resp.msg === 'error') {
                         $('#formSignIn').after('<span style="color: red" class="error">Username/Password incorrect.</span>');
                     }
@@ -70,7 +70,7 @@ $(document).ready(function() {
                     var resp = JSON.parse(response);
 
                     if (resp.msg) {
-                        window.location.reload()
+                        document.location.reload()
                     } else if (resp.error) {
                         $('#formRegistration').after('<span style="color: red" class="error">This user already exists.</span>');
                     }

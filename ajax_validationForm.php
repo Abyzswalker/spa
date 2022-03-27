@@ -33,7 +33,7 @@ switch ($_POST['key']) {
     case 'in':
         if (!empty($user)) {
             //3600
-            setcookie('user', $user['login'], time() + 36, '/');
+            setcookie('user', $user[0]['login'], time() + 3600, '/');
             $msg['msg'] = 'signIn';
             echo json_encode($msg);
         } elseif (!$user) {
