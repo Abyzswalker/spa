@@ -1,4 +1,5 @@
-<div class="" id="inputBlock">
+<div class="inputBlock">
+    <button class="btn btn-primary" id="logoutBtn">Logout</button>
     <form class="inputForm" id="inputForm">
         <div class="form-floating" id="blockSumma">
             <input type="number" class="form-control" name="formAmount" id="formAmount" placeholder="Сумма">
@@ -14,12 +15,12 @@
             <textarea class="form-control" id="formComment" placeholder="Leave a comment here" style="height: 100px"></textarea>
             <label for="floatingTextarea2">Comments</label>
         </div>
-        <button type="submit" class="btn btn-primary">Добавить</button>
+        <button id="submitBtn" type="submit" class="btn btn-primary">Добавить</button>
     </form>
 </div>
 
 
-<div class="tableBlock" id="tableBlock">
+<div class="tableOperationBlock" id="tableOperationBlock">
     <table class="operationTable" id="operationTable">
         <caption><h3>Операции</h3></caption>
 
@@ -33,7 +34,7 @@
         </thead>
 
         <tbody id="operationBody">
-        <?php foreach ($allOperations as $item) { ?>
+        <?php foreach ($getOperations as $item) { ?>
             <tr id="trBody">
                 <td class="td"><?= $item['amount'] ?></td>
                 <td class="td"><?= $item['operation'] ?></td>
@@ -44,7 +45,10 @@
             </tr>
         <?php } ?>
         </tbody>
+    </table>
 
+
+    <table class="summTable">
         <tbody id="summBody">
         <tr>
             <td>Итого Приход</td>
@@ -67,7 +71,6 @@
             <?php } ?>
         </tr>
         </tbody>
-
     </table>
 </div>
 

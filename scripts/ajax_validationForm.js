@@ -1,12 +1,13 @@
 $(document).ready(function() {
     $('#formSignIn').submit(function (e) {
         e.preventDefault();
-        var login = $('#loginIn').val();
-        var password = $('#passwordIn').val();
+
+        var login = $('#loginIn').val(),
+            password = $('#passwordIn').val(),
+            data = {};
 
         $(".error").remove();
 
-        var data = {};
 
         data["login"] = login;
         data["password"] = password;
@@ -35,9 +36,11 @@ $(document).ready(function() {
 
     $('#formRegistration').submit(function (e) {
         e.preventDefault();
-        var login = $('#loginUp').val();
-        var password = $('#passwordUp').val();
-        var email = $('#emailUp').val();
+
+        var login = $('#loginUp').val(),
+            password = $('#passwordUp').val(),
+            email = $('#emailUp').val(),
+            data = {};
 
         $(".error").remove();
 
@@ -48,8 +51,6 @@ $(document).ready(function() {
         if (password.length < 6) {
             $('#passwordUp').after('<span style="color: red" class="error">Password must be atleast 6 characterslong.</span>');
         }
-
-        var data = {};
 
         data["login"] = login;
         data["password"] = password;
@@ -68,28 +69,28 @@ $(document).ready(function() {
                 dataType: 'text',
                 success:function(response) {
                     var resp = JSON.parse(response);
+                    console.log(resp);
 
-                    if (resp.msg) {
+                    if (resp.msg == 'signUp') {
                         document.location.reload()
-                    } else if (resp.error) {
-                        $('#formRegistration').after('<span style="color: red" class="error">This user already exists.</span>');
+                    } else if (resp.msg == 'error') {
+                        $('#formRegistration').after('<span style="color: red" class="error">This login already exists.</span>');
                     }
                 }
             })
         }
     });
 
-    // $('#logout').submit(function (e) {
-    //     e.preventDefault();
-    //     $.ajax({
-    //         type: 'post',
-    //         url: '../includes/validationForm.php',
-    //         data: {
-    //             key: 'logout',
-    //         },
-    //         success:function() {
-    //             window.location.reload()
-    //         }
-    //     })
-    // });
+    $('#logoutBtn').click(function() {
+        $.ajax({
+            type: 'post',
+            url: '../ajax_validationForm.php',
+            data: {
+                key: 'logout',
+            },
+            success:function() {
+                window.location.reload()
+            }
+        })
+    });
 });

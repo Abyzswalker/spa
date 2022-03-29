@@ -5,14 +5,14 @@ namespace Spa\Classes;
 class Operations
 {
     private $pdo;
-    public $msg = [];
+    private $msg = [];
 
     public function __construct(Database $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function allOperations($start = 0, $limit = 99999)
+    public function getOperations($start = 0, $limit = 99999)
     {
         return $this->pdo->query("SELECT * FROM operations WHERE id > 0 ORDER BY date DESC LIMIT :start, :limit",
             ['start' => $start, 'limit' => $limit]
@@ -31,7 +31,9 @@ class Operations
         ]);
 
         if ($insert > 0) {
-            return $this->msg['msg'] = 'Operation was successful';
+            return $this->msg['msg'] = 'success';
+        } else {
+            return $this->msg['msg'] = 'error';
         }
     }
 

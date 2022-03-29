@@ -1,39 +1,13 @@
 <?php
 
 use Spa\Classes\Database;
-use Spa\Classes\Users;
 use Spa\Classes\Operations;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'config.php';
 
 $operationsRow = new Operations(new Database($config['db']));
-$allOperations = $operationsRow->allOperations(0, 10);
-
-
-//spl_autoload_register(function ($class_name) {
-//    include 'includes/Classes/' . $class_name . '.php';
-//});
-
-
-
-//$db = new Users(new Database($config['db']));
-
-//var_dump($db->allUsers());
-
-//$insert = $db->query("INSERT INTO users (login, pass, email)
-//     VALUES (:login, :pass, :email)", [
-//    'login' => 'Admin',
-//    'pass' => 123456,
-//    'email' => 'admin$gmail.com'
-//]);
-
-//if ($insert > 0) {
-//    print '1233333';
-//}
-
-//var_dump($_POST);
-
+$getOperations = $operationsRow->getOperations(0, 10);
 
 ?>
 <!DOCTYPE html>
@@ -46,15 +20,19 @@ $allOperations = $operationsRow->allOperations(0, 10);
     <link rel="stylesheet" href="style/style.css?v=<?=rand(1,1000)?>" />
 </head>
 <body>
-<?php
 
-if (empty($_COOKIE['user'])) {
-    include "pages/form.php";
-} elseif (!empty($_COOKIE['user'])) {
-    include "pages/main.php";
-}
+<div style="overflow-x: hidden;">
+    <?php
 
-?>
+    if (empty($_COOKIE['user'])) {
+        include "pages/form.php";
+    } elseif (!empty($_COOKIE['user'])) {
+        include "pages/main.php";
+    }
+
+    ?>
+</div>
+
 
 
 <script src="jquery-3.6.0.min.js"></script>

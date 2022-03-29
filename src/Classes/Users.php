@@ -5,16 +5,11 @@ namespace Spa\Classes;
 class Users
 {
     private $pdo;
-    public $msg = [];
+    private $msg = [];
 
     public function __construct(Database $pdo)
     {
         $this->pdo = $pdo;
-    }
-
-    public function allUsers()
-    {
-        return $this->pdo->query("SELECT * FROM users WHERE id > 0");
     }
 
     public function addUser($login, $pass, $email)
@@ -27,31 +22,23 @@ class Users
         ]);
 
         if ($insert > 0) {
-            return $this->msg['msg'] = 'Registration was successful';
+            return $this->msg['msg'] = 'signUp';
         }
     }
 
-    public function checkUser($login)
+    public function checkUserLogin($login)
     {
         return $this->pdo->query("SELECT login FROM users WHERE `login` = :login", ['login' => $login]);
     }
 
+    public function validateUser($login, $pass)
+    {
+        $query = $this->pdo->query("SELECT login, pass FROM users WHERE `login` = :login && `pass` = :pass", ['login' => $login, 'pass' => $pass]);
 
-//    public function getUserById($id)
-//    {
-//        $stmt = $this->connection->prepare("SELECT id, login FROM users WHERE `id` = ?");
-//        $stmt->execute(["$id"]);
-//        $this->user = $stmt->get_result();
-//
-//        return $this->user->fetch_assoc();
-//    }
-//
-//    public function getUserByName($login)
-//    {
-//        $stmt = $this->connection->prepare("SELECT id, login FROM users WHERE `login` = ?");
-//        $stmt->execute(["$login"]);
-//        $this->user = $stmt->get_result();
-//
-//        return $this->user->fetch_assoc();
-//    }
+        if ($query) {
+            return $this->msg = 'signIn';
+        } else {
+            return $this->msg = 'error';
+        }
+    }
 }

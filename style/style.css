@@ -1,3 +1,13 @@
+.inputBlock {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+#logoutBtn {
+    float: right;
+    margin-right: -70%;
+}
 #formBlock {
     height: 500px;
     width: 500px;
@@ -12,12 +22,6 @@
 }
 #collapseFormRegistration {
     padding-top: 10px;
-}
-#inputBlock {
-    padding-top: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
 }
 #inputForm {
     height: 70px;
@@ -38,7 +42,7 @@
 
 
 /*Table*/
-#tableBlock {
+#tableOperationBlock {
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
@@ -68,7 +72,7 @@ th {
 .tdBtn {
     width: 10%;
 }
-#summBody {
-    border-spacing: 10px;
-    border-collapse:separate;
+.summTable {
+    margin-top: 25px;
+    width: 200px;
 }
