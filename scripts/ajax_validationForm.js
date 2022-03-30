@@ -69,11 +69,10 @@ $(document).ready(function() {
                 dataType: 'text',
                 success:function(response) {
                     var resp = JSON.parse(response);
-                    console.log(resp);
 
-                    if (resp.msg == 'signUp') {
+                    if (resp.msg === 'signUp') {
                         document.location.reload()
-                    } else if (resp.msg == 'error') {
+                    } else if (resp.msg === 'error') {
                         $('#formRegistration').after('<span style="color: red" class="error">This login already exists.</span>');
                     }
                 }

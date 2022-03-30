@@ -29,7 +29,9 @@ switch ($_POST['key']) {
             echo json_encode($msg);
         } elseif (empty($user)) {
             $addUser = $usersRow->addUser($login, $pass, $email);
+
             if ($addUser = 'signUp') {
+                setcookie('user', $login, time() + 3600, '/');
                 $msg['msg'] = $addUser;
                 echo json_encode($msg);
             } else {
@@ -42,7 +44,7 @@ switch ($_POST['key']) {
             $validateUser = $usersRow->validateUser($login, $pass);
 
             if ($validateUser == 'signIn') {
-                setcookie('user', $user[0]['login'], time() + 3600, '/');
+                setcookie('user', $login, time() + 3600, '/');
                 $msg['msg'] = $validateUser;
                 echo json_encode($msg);
             } elseif ($validateUser == 'error') {

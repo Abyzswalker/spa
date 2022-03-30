@@ -1,5 +1,5 @@
 <div class="inputBlock">
-    <button class="btn btn-primary" id="logoutBtn">Logout</button>
+    <div class="logoutBlock"><h3><?=$_COOKIE['user'] ?></h3><button class="btn btn-primary" id="logoutBtn">Logout</button></div>
     <form class="inputForm" id="inputForm">
         <div class="form-floating" id="blockSumma">
             <input type="number" class="form-control" name="formAmount" id="formAmount" placeholder="Сумма">
