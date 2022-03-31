@@ -6,10 +6,7 @@
       "email": "abyzswalker@gmail.com"
     }
   ],
-  "require": {
-    "ext-pdo": "*",
-    "ext-json": "*"
-  },
+  "require": {},
   "autoload": {
     "psr-4": {
       "Spa\\": "src/"
