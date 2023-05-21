@@ -1,13 +1,4 @@
-.inputBlock {
-    margin-top: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1000px;
-}
-.logoutBlock {
-    float: right;
-    margin-right: -70%;
-}
+/*Login Form*/
 #formBlock {
     height: 500px;
     width: 500px;
@@ -23,15 +14,6 @@
 #collapseFormRegistration {
     padding-top: 10px;
 }
-#inputForm {
-    height: 70px;
-    width: 1300px;
-}
-#inputForm>div {
-    display: inline-block;
-    vertical-align: top;
-    height: 70px;
-}
 #formSumma,
 #formSelect {
     height: 50px;
@@ -40,6 +22,37 @@
     width: 500px;
 }
 
+/*Operations Form*/
+#inputBlock {
+    width: 100%;
+    height: 150px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+#emptyBlock {
+    width: 25%;
+}
+#inputForm {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    gap: 7px;
+    width: 70%;
+    padding-top: 20px;
+}
+.logoutBlock {
+    width: 10%;
+    text-align: right;
+    padding-right: 30px;
+    padding-bottom: 50px;;
+}
 
 /*Table*/
 #tableOperationBlock {

@@ -2,11 +2,11 @@
     <div><h2>Sign In</h2></div>
     <form id="formSignIn" method="post" action="">
         <div class="form-floating mb-3">
-            <input type="login" class="form-control" name="login" id="loginIn" placeholder="login">
+            <input type="login" class="form-control" name="login" id="loginIn" placeholder="login" required>
             <label for="floatingInput">Login</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" name="password" id="passwordIn" placeholder="Password">
+            <input type="password" class="form-control" name="password" id="passwordIn" placeholder="Password" required>
             <label for="floatingPassword">Password</label>
         </div>
         <div id="btnGroup">

@@ -17,13 +17,13 @@ services:
             - MYSQL_USER=dbadmin
             - MYSQL_PASSWORD=123456
         ports:
-            - '8073:3306'
+            - '9073:3306'
     phpmyadmin:
         container_name: spa-phpmyadmin
         image: phpmyadmin
         restart: always
         ports:
-            - '8072:80'
+            - '9072:80'
         environment:
             - PMA_HOST=spa-db
             - PMA_PORT=3306
@@ -37,7 +37,7 @@ services:
             - '..:/application'
             - './phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
         ports:
-            - '8071:80'
+            - '9071:80'
     php-fpm:
         container_name: spa-php-fpm
         build: phpdocker/php-fpm
@@ -45,12 +45,3 @@ services:
         volumes:
             - '..:/application'
             - './phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini'
-#    composer:
-#        build: composer
-#        container_name: spa-composer
-#        working_dir: /application
-#        volumes:
-#            - '..:/application'
-#        depends_on:
-#            - "php-fpm"
-#        command: composer install

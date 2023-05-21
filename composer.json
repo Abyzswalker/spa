@@ -6,10 +6,22 @@
       "email": "abyzswalker@gmail.com"
     }
   ],
-  "require": {},
   "autoload": {
     "psr-4": {
-      "Spa\\": "src/"
+      "Abyzs\\Spa\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Abyzs\\Spa\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.1"
+  },
+  "require": {
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-http": "*"
   }
 }

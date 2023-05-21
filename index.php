@@ -1,20 +1,20 @@
 <?php
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
 
-use Spa\Classes\Database;
-use Spa\Classes\Operations;
+use Abyzs\Spa\Classes\Operations;
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once 'config.php';
+require_once 'vendor/autoload.php';
 
-$operationsRow = new Operations(new Database($config['db']));
-$getOperations = $operationsRow->getOperations(0, 10);
+$operationsRow = new Operations();
+$operations = $operationsRow->getOperations(0, 10);
 
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Базовая разметка HTML</title>
+    <title>Project</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style/style.css?v=<?=rand(1,1000)?>" />
@@ -32,8 +32,6 @@ $getOperations = $operationsRow->getOperations(0, 10);
 
     ?>
 </div>
-
-
 
 <script src="jquery-3.6.0.min.js"></script>
 <script src="scripts/ajax_validationForm.js"></script>

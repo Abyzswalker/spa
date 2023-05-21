@@ -1,44 +1,40 @@
 $(document).ready(function() {
     $('#inputForm').submit(function (e) {
         e.preventDefault();
-        var amount = $('#formAmount').val(),
-            operation = $('#formSelect').val(),
-            comment = $('#formComment').val(),
-            data = {};
+
+        let data = {
+                "amount": parseFloat($('#formAmount').val()),
+                "operation": $('#formSelect').val(),
+                "comment": $('#formComment').val()
+            };
 
         $(".error").remove();
 
-        data["amount"] = amount;
-        data["operation"] = operation;
-        data["comment"] = comment;
-
-        if (amount !== '' && operation !== '') {
+        if (data['amount'] && data['operation']) {
             $.ajax({
                 type: 'post',
                 url: '../ajax_operations.php',
                 dataType: 'html',
                 data: {
-                    key: 'add',
+                    action: 'add',
                     data: data
                 },
                 error: function() {
                     alert('Что-то пошло не так!');
                 },
                 success:function(response) {
-                    var resp = JSON.parse(response);
-
-                    var table = resp[0],
-                        summPrihod = resp[1],
-                        summRashod = resp[2];
+                    let resp = JSON.parse(response),
+                        row = resp['html'];
 
                     if ($("#operationBody tr").length < 10) {
-                        $("#operationBody").prepend(table);
-                    } else if ($("#tbody tr").length >= 10)  {
-                        $("#operationBody").prepend(table);
-                        $("#tbody").deleteRow(table);
+                        $("#operationBody").prepend(row);
+                    } else if ($("#operationBody tr").length >= 10)  {
+                        $("#operationBody").prepend(row);
+                        $("#operationTable")[0].deleteRow(-1);
                     }
-                    $("#tdSummPrihod").html(summPrihod);
-                    $("#tdSummRashod").html(summRashod);
+
+                    $("#tdSummPrihod").html(resp['summPrihod']);
+                    $("#tdSummRashod").html(resp['summRashod']);
 
                     $('#inputForm').trigger('reset');
                 }
@@ -47,7 +43,7 @@ $(document).ready(function() {
     });
 
     $('#operationBody').on('click', '.deleteOperation', function() {
-        var id = $(this).data('id');
+        let id = $(this).data('id');
 
         if (id) {
             $.ajax({
@@ -55,7 +51,7 @@ $(document).ready(function() {
                 url: '../ajax_operations.php',
                 dataType: "html",
                 data: {
-                    key: 'delete',
+                    action: 'delete',
                     id: id
 
                 },
@@ -63,15 +59,12 @@ $(document).ready(function() {
                     alert('Что-то пошло не так!');
                 },
                 success: function(response){
-                    var resp = JSON.parse(response);
-
-                    var table = resp[0],
-                        summPrihod = resp[1] !== null ? resp[1] : 0,
-                        summRashod = resp[2] !== null ? resp[2] : 0;
+                    let resp = JSON.parse(response),
+                        table = resp['html'];
 
                     $("#operationBody").html(table);
-                    $("#tdSummPrihod").html(summPrihod);
-                    $("#tdSummRashod").html(summRashod);
+                    $("#tdSummPrihod").html(resp['summPrihod']);
+                    $("#tdSummRashod").html(resp['summRashod']);
                 }
             });
         }

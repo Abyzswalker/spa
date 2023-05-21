@@ -1,26 +1,23 @@
 <?php
 
-use Spa\Classes\Database;
-use Spa\Classes\Users;
+use Abyzs\Spa\Classes\Users;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once 'config.php';
 
 $msg = [];
-$usersRow = new Users(new Database($config['db']));
+$usersRow = new Users();
 
 if ($_POST['data']['login'] && $_POST['data']['password']) {
     $login = filter_var(trim($_POST['data']['login']), FILTER_SANITIZE_STRING);
     $pass = filter_var(trim($_POST['data']['password']), FILTER_SANITIZE_STRING);
     $pass = md5($pass."test12345");
 
+    $user = $usersRow->checkUserLogin($login);
+
     if (!empty($_POST['data']['email'])) {
         $email = filter_var(trim($_POST['data']['email']), FILTER_SANITIZE_STRING);
     }
-
 }
-
-$user = $usersRow->checkUserLogin($login);
 
 switch ($_POST['key']) {
     case 'up':

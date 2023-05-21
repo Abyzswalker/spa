@@ -2,17 +2,14 @@ $(document).ready(function() {
     $('#formSignIn').submit(function (e) {
         e.preventDefault();
 
-        var login = $('#loginIn').val(),
-            password = $('#passwordIn').val(),
-            data = {};
+        let data = {
+                "login": $('#loginIn').val(),
+                "password": $('#passwordIn').val()
+            };
 
         $(".error").remove();
 
-
-        data["login"] = login;
-        data["password"] = password;
-
-        if (login !== '' && password !== '') {
+        if (data['login'] !== '' && data['password'] !== '') {
             $.ajax({
                 type: 'post',
                 url: '../ajax_validationForm.php',
@@ -22,7 +19,7 @@ $(document).ready(function() {
                 },
                 dataType: 'text',
                 success:function(response) {
-                    var resp = JSON.parse(response);
+                    let resp = JSON.parse(response);
 
                     if (resp.msg === 'signIn') {
                         document.location.reload();
@@ -37,26 +34,23 @@ $(document).ready(function() {
     $('#formRegistration').submit(function (e) {
         e.preventDefault();
 
-        var login = $('#loginUp').val(),
-            password = $('#passwordUp').val(),
-            email = $('#emailUp').val(),
-            data = {};
+        var data = {
+                "login": $('#loginUp').val(),
+                "password": $('#passwordUp').val(),
+                "email": $('#emailUp').val()
+            };
 
         $(".error").remove();
 
-        if (login.length < 4) {
+        if (data['login'].length < 4) {
             $('#loginUp').after('<span style="color: red" class="error">Login must be atleast 4 characterslong.</span>');
         }
 
-        if (password.length < 6) {
+        if (data['password'].length < 6) {
             $('#passwordUp').after('<span style="color: red" class="error">Password must be atleast 6 characterslong.</span>');
         }
 
-        data["login"] = login;
-        data["password"] = password;
-        data["email"] = email;
-
-        if (login.length < 4 || password.length < 6) {
+        if (data['login'].length < 4 || data['password'].length < 6) {
             $('#formRegistration').after('<span style="color: red" class="error">Incorrect login or password. </span>');
         } else {
             $.ajax({
@@ -68,7 +62,7 @@ $(document).ready(function() {
                 },
                 dataType: 'text',
                 success:function(response) {
-                    var resp = JSON.parse(response);
+                    let resp = JSON.parse(response);
 
                     if (resp.msg === 'signUp') {
                         document.location.reload()

@@ -1,5 +1,1 @@
-/build/
-/.idea/
-.phpunit.result.cache
-.env
-.discovery
+/vendor

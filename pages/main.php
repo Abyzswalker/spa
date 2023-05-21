@@ -1,8 +1,8 @@
-<div class="inputBlock">
-    <div class="logoutBlock"><h3><?=$_COOKIE['user'] ?></h3><button class="btn btn-primary" id="logoutBtn">Logout</button></div>
+<div class="inputBlock" id="inputBlock">
+    <div id="emptyBlock"></div>
     <form class="inputForm" id="inputForm">
         <div class="form-floating" id="blockSumma">
-            <input type="number" class="form-control" name="formAmount" id="formAmount" placeholder="Сумма">
+            <input type="number" min="0.1" step="any" class="form-control" name="formAmount" id="formAmount" placeholder="Сумма" required>
             <label for="formAmount">Сумма</label>
         </div>
         <div class="mb-3" id="blockSelect">
@@ -17,6 +17,8 @@
         </div>
         <button id="submitBtn" type="submit" class="btn btn-primary">Добавить</button>
     </form>
+
+    <div class="logoutBlock"><h3><?=$_COOKIE['user'] ?></h3><button class="btn btn-primary" id="logoutBtn">Logout</button></div>
 </div>
 
 
@@ -29,18 +31,18 @@
                 <td class="td">Сумма</td>
                 <td class="td">Операция</td>
                 <td class="td">Комментарий</td>
-                <td class="td">Действие</td>
+                <td class="td"></td>
             </tr>
         </thead>
 
         <tbody id="operationBody">
-        <?php foreach ($getOperations as $item) { ?>
+        <?php foreach ($operations as $operation) { ?>
             <tr id="trBody">
-                <td class="td"><?= $item['amount'] ?></td>
-                <td class="td"><?= $item['operation'] ?></td>
-                <td class="td"><?= $item['comment'] ?></td>
+                <td class="td"><?= $operation['amount'] ?></td>
+                <td class="td"><?= $operation['operation'] ?></td>
+                <td class="td"><?= $operation['comment'] ?></td>
                 <td class="tdBtn">
-                    <button class="deleteOperation" data-id="<?= $item['id'] ?>">Удалить</button>
+                    <button class="deleteOperation" data-id="<?= $operation['id'] ?>">Удалить</button>
                 </td>
             </tr>
         <?php } ?>
