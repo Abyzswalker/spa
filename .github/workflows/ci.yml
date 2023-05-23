@@ -70,13 +70,13 @@ jobs:
           cp .env.ci .env
           cp phpunit.ci.xml phpunit.xml
           composer test
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    name: "Code coverage"
-    steps:
-      - name: 'Coveralls Finished'
-        uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
+#  coverage:
+#    needs: test
+#    runs-on: ubuntu-latest
+#    name: "Code coverage"
+#    steps:
+#      - name: 'Coveralls Finished'
+#        uses: coverallsapp/github-action@v1.1.2
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          parallel-finished: true
