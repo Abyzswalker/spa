@@ -1,15 +1,17 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - edited
-      - synchronize
+  on: [push]
+
+#  push:
+#    branches:
+#      - master
+#  pull_request:
+#    types:
+#      - opened
+#      - reopened
+#      - edited
+#      - synchronize
 
 #env:
 #  COVERAGE: '1'
