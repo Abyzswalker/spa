@@ -1,16 +1,15 @@
 name: CI
 
-on: [push]
-
-#  push:
-#    branches:
-#      - master
-#  pull_request:
-#    types:
-#      - opened
-#      - reopened
-#      - edited
-#      - synchronize
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
 
 #env:
 #  COVERAGE: '1'
@@ -22,57 +21,12 @@ on: [push]
 #  DB_HOST: '127.0.0.1'
 
 jobs:
-#  lint:
-#    runs-on: '${{ matrix.operating_system }}'
-#    timeout-minutes: 20
-#    strategy:
-#      matrix:
-#        operating_system: ['ubuntu-latest']
-#        php_versions: ['8.1']
-#      fail-fast: false
-#    env:
-#      PHP_CS_FIXER_FUTURE_MODE: '0'
-#    name: 'Lint PHP'
-#    steps:
-#      - name: 'Checkout'
-#        uses: actions/checkout@v2
-#      - name: 'Setup cache environment'
-#        id: cache-env
-#        uses: shivammathur/cache-extensions@v1
-#        with:
-#          php-version: '${{ matrix.php_versions }}'
-#          extensions: '${{ env.php_extensions }}'
-#          key: '${{ env.key }}'
-#      - name: 'Cache extensions'
-#        uses: actions/cache@v1
-#        with:
-#          path: '${{ steps.cache-env.outputs.dir }}'
-#          key: '${{ steps.cache-env.outputs.key }}'
-#          restore-keys: '${{ steps.cache-env.outputs.key }}'
-#      - name: 'Setup PHP'
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: ${{ matrix.php_versions }}
-#          extensions: '${{ env.php_extensions }}'
-#          ini-values: memory_limit=-1
-#          tools: pecl, composer
-#          coverage: none
-#      - name: 'Setup problem matchers for PHP (aka PHP error logs)'
-#        run: 'echo "::add-matcher::${{ runner.tool_cache }}/php.json"'
-#      - name: 'Setup problem matchers for PHPUnit'
-#        run: 'echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"'
-#      - name: 'Install PHP dependencies with Composer'
-#        run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
-#        working-directory: './'
-#      - name: 'Linting PHP source files'
-#        run: 'composer lint'
   test:
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        operating_system: ['ubuntu-latest']
-        postgres: [11, 12]
-        php_versions: ['7.3', '7.4', '8.0', '8.1']
+        php_versions: ['8.1']
     steps:
       # —— Setup Github actions —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
