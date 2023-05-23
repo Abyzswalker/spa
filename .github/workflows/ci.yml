@@ -1,0 +1,127 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+#env:
+#  COVERAGE: '1'
+#  php_extensions: 'pdo, pdo_pgsql, pcntl, pcov, ...'
+#  key: cache-v0.1
+#  DB_USER: 'postgres'
+#  DB_NAME: 'testing'
+#  DB_PASSWORD: 'postgres'
+#  DB_HOST: '127.0.0.1'
+
+jobs:
+#  lint:
+#    runs-on: '${{ matrix.operating_system }}'
+#    timeout-minutes: 20
+#    strategy:
+#      matrix:
+#        operating_system: ['ubuntu-latest']
+#        php_versions: ['8.1']
+#      fail-fast: false
+#    env:
+#      PHP_CS_FIXER_FUTURE_MODE: '0'
+#    name: 'Lint PHP'
+#    steps:
+#      - name: 'Checkout'
+#        uses: actions/checkout@v2
+#      - name: 'Setup cache environment'
+#        id: cache-env
+#        uses: shivammathur/cache-extensions@v1
+#        with:
+#          php-version: '${{ matrix.php_versions }}'
+#          extensions: '${{ env.php_extensions }}'
+#          key: '${{ env.key }}'
+#      - name: 'Cache extensions'
+#        uses: actions/cache@v1
+#        with:
+#          path: '${{ steps.cache-env.outputs.dir }}'
+#          key: '${{ steps.cache-env.outputs.key }}'
+#          restore-keys: '${{ steps.cache-env.outputs.key }}'
+#      - name: 'Setup PHP'
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php_versions }}
+#          extensions: '${{ env.php_extensions }}'
+#          ini-values: memory_limit=-1
+#          tools: pecl, composer
+#          coverage: none
+#      - name: 'Setup problem matchers for PHP (aka PHP error logs)'
+#        run: 'echo "::add-matcher::${{ runner.tool_cache }}/php.json"'
+#      - name: 'Setup problem matchers for PHPUnit'
+#        run: 'echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"'
+#      - name: 'Install PHP dependencies with Composer'
+#        run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+#        working-directory: './'
+#      - name: 'Linting PHP source files'
+#        run: 'composer lint'
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        operating_system: ['ubuntu-latest']
+        postgres: [11, 12]
+        php_versions: ['7.3', '7.4', '8.0', '8.1']
+    steps:
+      # —— Setup Github actions —————————————————————————————————————————————
+      # https://github.com/actions/checkout (official)
+      - name: Git checkout placeholder-service
+        uses: actions/checkout@v2
+      # https://github.com/shivammathur/setup-php (community)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: none
+          tools: composer:v2
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo
+        env:
+          update: true
+      - name: Check PHP Version
+        run: php -v
+      # —— Composer —————————————————————————————————————————————————————————
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install
+      # —— Code style —— (Based on this package: https://github.com/OskarStark/php-cs-fixer-ga)
+      - name: PHP-CS-Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php_cs.dist --diff --dry-run
+      ## —— Tests ———————————————————————————————————————————————————————————
+      - name: Run functionnal and unit tests
+        run: |
+          cp .env.ci .env.test
+          cp .env.ci .env
+          cp phpunit.ci.xml phpunit.xml
+          composer test
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    name: "Code coverage"
+    steps:
+      - name: 'Coveralls Finished'
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true

@@ -17,11 +17,16 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.1"
+    "phpunit/phpunit": "^9.1",
+    "vimeo/psalm": "^5.11"
   },
   "require": {
     "ext-pdo": "*",
-    "ext-json": "*",
-    "ext-http": "*"
+    "ext-json": "*"
+  },
+  "scripts": {
+    "test": [
+      "php vendor/bin/phpunit"
+    ]
   }
 }
