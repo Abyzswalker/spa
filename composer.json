@@ -27,8 +27,6 @@
     "ext-json": "*"
   },
   "scripts": {
-    "test": [
-      "php vendor/bin/phpunit"
-    ]
+    "test": "vendor/bin/phpunit"
   }
 }
