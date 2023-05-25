@@ -50,6 +50,6 @@ class UserTest extends TestCase
 
         $result = $this->users->validateUser('admin', 123456);
 
-        $this->assertEquals('signI', $result);
+        $this->assertEquals('sign', $result);
     }
 }

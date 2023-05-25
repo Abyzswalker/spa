@@ -10,16 +10,6 @@ on:
       - reopened
       - edited
       - synchronize
-
-#env:
-#  COVERAGE: '1'
-#  php_extensions: 'pdo, pdo_pgsql, pcntl, pcov, ...'
-#  key: cache-v0.1
-#  DB_USER: 'postgres'
-#  DB_NAME: 'testing'
-#  DB_PASSWORD: 'postgres'
-#  DB_HOST: '127.0.0.1'
-
 jobs:
   test:
     runs-on: ubuntu-latest
