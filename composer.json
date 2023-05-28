@@ -28,6 +28,9 @@
     "ext-json": "*"
   },
   "scripts": {
-    "tests": "vendor/bin/phpunit --testsuite unit"
+    "tests": "vendor/bin/phpunit --testsuite unit",
+    "static": [
+      "vendor/bin/phpcs --ignore-annotations --standard=PSR12 src tests && vendor/bin/phpstan analyse --level=max src"
+    ]
   }
 }
