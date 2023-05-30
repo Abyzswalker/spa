@@ -5,17 +5,13 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-#    container:
-#      image: composer-latest
-#      volumes:
-#        - ${{ github.workspace }}:/app
     strategy:
       matrix:
         php-versions: ['8.1']
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose up -d
+        run: cd .docker && docker-compose up -d
 #      - name: php
 #        uses: shivammathur/setup-php@v2
 #        with:
