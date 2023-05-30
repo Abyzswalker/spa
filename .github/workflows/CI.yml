@@ -16,7 +16,7 @@ jobs:
       - name: checkout the repo
         uses: actions/checkout@v2
       - name: docker
-        run: docker build
+        run: docker build . --file Dockerfile
 #      - name: php
 #        uses: shivammathur/setup-php@v2
 #        with:
