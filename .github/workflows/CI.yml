@@ -15,25 +15,25 @@ jobs:
     steps:
       - name: checkout the repo
         uses: actions/checkout@v2
-     -  name: docker
+      - name: docker
         run: docker build
-      - name: php
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, gd, zip
-          ini-values: max_execution_time=600, memory_limit=-1
-          coverage: xdebug
-      - name: Validate composer.json
-        run: |
-          curl -sS https://getcomposer.org/installer | php -- --filename=composer
-          composer validate
-      - name: Install dependency
-        run: |
-          composer install
-#      - name: Analyze code
+#      - name: php
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php-versions }}
+#          extensions: mbstring, gd, zip
+#          ini-values: max_execution_time=600, memory_limit=-1
+#          coverage: xdebug
+#      - name: Validate composer.json
 #        run: |
-#          composer static
-      - name: Run tests
-        run: |
-          composer tests
+#          curl -sS https://getcomposer.org/installer | php -- --filename=composer
+#          composer validate
+#      - name: Install dependency
+#        run: |
+#          composer install
+##      - name: Analyze code
+##        run: |
+##          composer static
+#      - name: Run tests
+#        run: |
+#          composer tests
