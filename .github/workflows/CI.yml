@@ -8,15 +8,15 @@ jobs:
     container:
       image: composer-latest
       volumes:
-        - my-app:/app
+        - ${{ github.workspace }}:/app
     strategy:
       matrix:
         php-versions: ['8.1']
     steps:
-      - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@v2
-      - name: Build the stack
-      run: docker-compose -f docker-compose.prod.yml -f docker-compose.test.yml up -d --build
+      - name: checkout the repo
+        uses: actions/checkout@v2
+      - name: php
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, gd, zip
