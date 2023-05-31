@@ -11,8 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: cd .docker && docker-compose up -d
-#      - name: php
+        run: cd .docker && docker-compose up -d && docker exec -it spa-php-fpm /bin/sh
+
+      #      - name: php
 #        uses: shivammathur/setup-php@v2
 #        with:
 #          php-version: ${{ matrix.php-versions }}
