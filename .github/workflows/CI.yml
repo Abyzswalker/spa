@@ -19,16 +19,16 @@ jobs:
 #          extensions: mbstring, gd, zip
 #          ini-values: max_execution_time=600, memory_limit=-1
 #          coverage: xdebug
-#      - name: Validate composer.json
+      - name: Validate composer.json
+        run: |
+          curl -sS https://getcomposer.org/installer | php -- --filename=composer
+          composer validate
+      - name: Install dependency
+        run: |
+          composer install
+#      - name: Analyze code
 #        run: |
-#          curl -sS https://getcomposer.org/installer | php -- --filename=composer
-#          composer validate
-#      - name: Install dependency
-#        run: |
-#          composer install
-##      - name: Analyze code
-##        run: |
-##          composer static
-#      - name: Run tests
-#        run: |
-#          composer tests
+#          composer static
+      - name: Run tests
+        run: |
+          composer tests
