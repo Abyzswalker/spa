@@ -12,7 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build the stack
-        run: cd .docker && docker-compose build && docker-compose up
+        run: docker-compose build
+#      - name: UP Docker
+#        run: docker-compose up
 
 
 #      - uses: shivammathur/setup-php@v2
