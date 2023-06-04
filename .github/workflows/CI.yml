@@ -14,7 +14,6 @@ jobs:
       - name: Build the stack
         run: cd .docker && docker-compose build
       - name: UP Docker
-        needs: [Build the stack]
         run: cd .docker && docker-compose up
 
 
