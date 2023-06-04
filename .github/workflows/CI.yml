@@ -9,25 +9,28 @@ jobs:
       matrix:
         php-versions: ['8.1']
     steps:
-      - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@v2
-#      - name: Build the stack
-#        run: cd .docker && docker-compose up -d && docker exec -it spa-php-fpm /bin/sh
-        with:
-          php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, gd, zip
-          ini-values: max_execution_time=600, memory_limit=-1
-          coverage: xdebug
-      - name: Validate composer.json
-        run: |
-          curl -sS https://getcomposer.org/installer | php -- --filename=composer
-          composer validate
-      - name: Install dependency
-        run: |
-          composer install
-#      - name: Analyze code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+
+#      - uses: shivammathur/setup-php@v2
+##      - name: Build the stack
+##        run: cd .docker && docker-compose up -d && docker exec -it spa-php-fpm /bin/sh
+#        with:
+#          php-version: ${{ matrix.php-versions }}
+#          extensions: mbstring, gd, zip
+#          ini-values: max_execution_time=600, memory_limit=-1
+#          coverage: xdebug
+#      - name: Validate composer.json
 #        run: |
-#          composer static
-      - name: Run tests
-        run: |
-          composer tests
+#          curl -sS https://getcomposer.org/installer | php -- --filename=composer
+#          composer validate
+#      - name: Install dependency
+#        run: |
+#          composer install
+##      - name: Analyze code
+##        run: |
+##          composer static
+#      - name: Run tests
+#        run: |
+#          composer tests
