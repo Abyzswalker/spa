@@ -11,12 +11,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-#      - name: Build the stack
-#        run: cd .docker && docker-compose build
-#      - name: UP Docker
-#        run: docker-compose up
-      - name: docker buildx
-        uses: docker/setup-buildx-action@v1
+      - name: Build the stack
+        run: cd .docker && docker-compose build
+      - name: UP Docker
+        needs: [Build the stack]
+        run: cd .docker && docker-compose up
 
 
 #      - uses: shivammathur/setup-php@v2
