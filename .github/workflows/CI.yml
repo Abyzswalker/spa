@@ -21,13 +21,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        - name: Validate composer.json
-          run: |
-            curl -sS https://getcomposer.org/installer | php -- --filename=composer
-            composer validate
-        - name: Install dependency
-          run: |
-            composer install
+      - name: Validate composer.json
+        run: |
+          curl -sS https://getcomposer.org/installer | php -- --filename=composer
+          composer validate
+      - name: Install dependency
+        run: |
+          composer install
 
 
 #      - uses: shivammathur/setup-php@v2
