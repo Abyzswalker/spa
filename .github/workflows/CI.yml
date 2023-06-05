@@ -13,14 +13,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Build the stack
         run: cd .docker && docker-compose build
-#      - name: UP Docker
-#        run: cd .docker && docker-compose up
-  tests:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: Validate composer.json
         run: |
           curl -sS https://getcomposer.org/installer | php -- --filename=composer
@@ -31,6 +23,22 @@ jobs:
       - name: Run tests
         run: |
           composer tests
+#  tests:
+#    needs: [build]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#      - name: Validate composer.json
+#        run: |
+#          curl -sS https://getcomposer.org/installer | php -- --filename=composer
+#          composer validate
+#      - name: Install dependency
+#        run: |
+#          composer install
+#      - name: Run tests
+#        run: |
+#          composer tests
 
 
 #      - uses: shivammathur/setup-php@v2
