@@ -17,6 +17,11 @@ jobs:
         run: cd .docker && docker-compose up
       - name: test
         run: cd .docker
+  tests:
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
 
 #      - uses: shivammathur/setup-php@v2
