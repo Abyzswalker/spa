@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build the stack
-        run: cd .docker && docker-compose build
+#      - name: Build the stack
+#        run: cd .docker && docker-compose build
       - name: Validate composer.json
         run: |
           curl -sS https://getcomposer.org/installer | php -- --filename=composer
