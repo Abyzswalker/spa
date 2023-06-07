@@ -20,11 +20,7 @@ jobs:
       - name: Exec
         run: docker exec spa-php-fpm /bin/sh
       - name: test
-        run: if [ -f /.dockerenv ]; then
-    echo "I'm inside matrix ;(";
-  else
-  echo "I'm living in real world!";
-  fi
+        run: if [ -f /.dockerenv ]; then echo "I'm inside matrix ;("; else echo "I'm living in real world!"; fi
 #      - name: Validate composer.json
 #        run: |
 #          curl -sS https://getcomposer.org/installer | php -- --filename=composer
