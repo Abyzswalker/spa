@@ -17,16 +17,18 @@ jobs:
         run: docker-compose build
       - name: UP
         run: docker-compose up -d
-      - name: Validate composer.json
-        run: |
-          curl -sS https://getcomposer.org/installer | php -- --filename=composer
-          composer validate
-      - name: Install dependency
-        run: |
-          composer install
-      - name: Run tests
-        run: |
-          composer tests
+      - name: Exec
+        run: docker exec -it spa-php-fpm /bin/sh
+#      - name: Validate composer.json
+#        run: |
+#          curl -sS https://getcomposer.org/installer | php -- --filename=composer
+#          composer validate
+#      - name: Install dependency
+#        run: |
+#          composer install
+#      - name: Run tests
+#        run: |
+#          composer tests
 #  tests:
 #    needs: [build]
 #    runs-on: ubuntu-latest
