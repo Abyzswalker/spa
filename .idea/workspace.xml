@@ -103,7 +103,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../php" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -176,6 +176,7 @@
       <workItem from="1686092551157" duration="924000" />
       <workItem from="1686494163225" duration="2053000" />
       <workItem from="1686554567626" duration="204000" />
+      <workItem from="1687092910864" duration="322000" />
     </task>
     <servers />
   </component>
