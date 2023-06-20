@@ -5,11 +5,11 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      COMPOSE_FILE: .docker/docker-compose.yml
+#    env:
+#      COMPOSE_FILE: .docker/docker-compose.yml
     strategy:
       matrix:
-        php-versions: ['8.1']
+        php-versions: ['7.3', '7.4', '8.0', '8.1']
     steps:
       - uses: actions/checkout@v1
       - uses: shivammathur/setup-php@v2
