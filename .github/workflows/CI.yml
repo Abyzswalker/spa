@@ -27,4 +27,4 @@ jobs:
           composer install
       - name: Run tests
         run: |
-          composer tests
+          composer unit
