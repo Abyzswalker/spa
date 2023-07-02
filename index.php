@@ -2,11 +2,13 @@
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
+use Abyzs\Spa\Classes\DB\Connection;
+use Abyzs\Spa\Classes\DB\Database;
 use Abyzs\Spa\Classes\Operations;
 
 require_once 'vendor/autoload.php';
 
-$operationsRow = new Operations();
+$operationsRow = new Operations(new Database((new Connection())->getConnection()));
 $operations = $operationsRow->getOperations(0, 10);
 
 ?>

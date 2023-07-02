@@ -2,87 +2,93 @@
 
 namespace Abyzs\Spa\Unit;
 
-use Abyzs\Spa\Classes\Operations;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Abyzs\Spa\Classes\DB\Database;
+use Abyzs\Spa\Classes\Operations;
 
 class OperationsTest extends TestCase
 {
     /**
-     * @var MockObject|Operations
+     * @var MockObject|Database
      */
-    private MockObject $operations;
+    private MockObject $database;
+
+    private $operations;
 
     protected function setUp(): void
     {
-        $this->operations = $this->getMockBuilder(Operations::class)
+        $this->database = $this->getMockBuilder(Database::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->operations = new Operations($this->database);
     }
 
     public function testGetOperations(): void
     {
-        $this->operations->expects($this->any())
-            ->method('getOperations')
+        $this->database->expects($this->once())
+            ->method('query')
             ->willReturn([]);
 
-        $result = $this->operations->getOperations(1, 10);
-
-        $this->assertIsArray($result);
+        $this->assertIsArray($this->operations->getOperations(1, 10));
     }
 
     public function testAddOperation(): void
     {
-        $this->operations->expects($this->any())
-            ->method('addOperation')
-            ->willReturn('success');
+        $this->database->expects($this->once())
+            ->method('query')
+            ->willReturn(1);
 
-        $result = $this->operations->addOperation(100, '', '');
-
-        $this->assertEquals('success', $result);
+        $this->assertEquals(true, $this->operations->addOperation(100, 'Приход'));
     }
 
-    public function testDeleteOperation(): void
+    public function testFailedAddOperation(): void
     {
-        $this->operations->expects($this->any())
-            ->method('deleteOperation')
-            ->willReturn(true);
+        $this->database->expects($this->once())
+            ->method('query')
+            ->willThrowException(new \PDOException());
 
-        $result = $this->operations->deleteOperation(7);
-
-        $this->assertTrue($result);
+        $this->assertEquals(false, $this->operations->addOperation(100, 'Приход'));
     }
 
-    public function testLastInsertOperation(): void
+    public function testDeleteOperation()
     {
-        $this->operations->expects($this->any())
-            ->method('lastInsertOperation')
-            ->willReturn([]);
+        $this->database->expects($this->once())
+            ->method('query')
+            ->willReturn(1);
 
-        $result = $this->operations->lastInsertOperation();
-
-        $this->assertIsArray($result);
+        $this->assertTrue($this->operations->deleteOperation(1));
     }
 
-    public function testSummAllPrihod(): void
+    public function testFailedDeleteOperation()
     {
-        $this->operations->expects($this->any())
-            ->method('summAllPrihod')
-            ->willReturn(451.1);
+        $this->database->expects($this->once())
+            ->method('query')
+            ->willThrowException(new \PDOException());
 
-        $result = $this->operations->summAllPrihod();
-
-        $this->assertIsFloat($result);
+        $this->assertFalse($this->operations->deleteOperation(1));
     }
 
-    public function testSummAllRashod(): void
+    public function testSummAllPrihod()
     {
-        $this->operations->expects($this->any())
-            ->method('summAllRashod')
-            ->willReturn(451.1);
+        $this->database->expects($this->once())
+            ->method('query')
+            ->willReturn([
+                ["SUM(amount)" => 157.776666666]
+            ]);
 
-        $result = $this->operations->summAllRashod();
+        $this->assertEquals(157.777, $this->operations->summAllPrihod());
+    }
 
-        $this->assertIsFloat($result);
+    public function testSummAllRashod()
+    {
+        $this->database->expects($this->once())
+            ->method('query')
+            ->willReturn([
+                ["SUM(amount)" => 157.776666666]
+            ]);
+
+        $this->assertEquals(157.777, $this->operations->summAllRashod());
     }
 }

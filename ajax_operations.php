@@ -1,10 +1,12 @@
 <?php
 
+use Abyzs\Spa\Classes\DB\Connection;
+use Abyzs\Spa\Classes\DB\Database;
 use Abyzs\Spa\Classes\Operations;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$operationsRow = new Operations();
+$operationsRow = new Operations(new Database((new Connection())->getConnection()));
 
 switch ($_POST['action']) {
     case 'add':
@@ -15,7 +17,7 @@ switch ($_POST['action']) {
 
             $addOperation = $operationsRow->addOperation((float) $amount, $operation, $comment);
 
-            if ($addOperation == 'success') {
+            if ($addOperation) {
                 $lastOperaon = $operationsRow->lastInsertOperation();
 
                 $html = '<tr id="trBody">' .

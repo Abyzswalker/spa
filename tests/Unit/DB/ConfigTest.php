@@ -1,6 +1,6 @@
 <?php
 
-namespace DB;
+namespace Abyzs\Spa\Unit\DB;
 
 use PHPUnit\Framework\TestCase;
 use Abyzs\Spa\Classes\DB\Config;
@@ -8,7 +8,6 @@ use Abyzs\Spa\Classes\DB\Config;
 class ConfigTest extends TestCase
 {
     protected function setUp(): void {}
-    protected function tearDown(): void {}
 
     public function testGet(): void
     {

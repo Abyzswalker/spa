@@ -2,17 +2,15 @@
 
 namespace Abyzs\Spa\Classes;
 
-use Abyzs\Spa\Classes\DB\Connection;
 use Abyzs\Spa\Classes\DB\Database;
 
 class Operations
 {
     private Database $pdo;
-    private $msg = [];
 
-    public function __construct()
+    public function __construct(Database $database)
     {
-        $this->pdo = new Database((new Connection())->getConnection());
+        $this->pdo = $database;
     }
 
     public function getOperations(int $start = 0, int $limit = 99999): array
@@ -22,7 +20,7 @@ class Operations
         );
     }
 
-    public function addOperation(float $amount, string $operation, string $comment = null): string
+    public function addOperation(float $amount, string $operation, string $comment = null): bool
     {
         try {
             $today = date("Y-m-d H:i:s");
@@ -36,12 +34,12 @@ class Operations
             ]);
 
             if ($insert > 0) {
-                return $this->msg['msg'] = 'success';
+                return true;
             }
 
             $this->pdo->dbClose();
         } catch (\PDOException $e) {
-            return $this->msg['msg'] = 'error';
+            return false;
         }
     }
 
@@ -70,6 +68,8 @@ class Operations
         $summ = $this->pdo->query("SELECT SUM(amount) FROM operations WHERE operation = :operation",
             ['operation' => 'Приход']);
 
+        echo "<pre>";
+        var_dump($summ);
         return $summ[0]['SUM(amount)'] != null ? round($summ[0]['SUM(amount)'], 3) : 0;
     }
 

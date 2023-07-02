@@ -1,11 +1,13 @@
 <?php
 
+use Abyzs\Spa\Classes\DB\Connection;
+use Abyzs\Spa\Classes\DB\Database;
 use Abyzs\Spa\Classes\Users;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $msg = [];
-$usersRow = new Users();
+$usersRow = new Users(new Database((new Connection())->getConnection()));
 
 if ($_POST['data']['login'] && $_POST['data']['password']) {
     $login = filter_var(trim($_POST['data']['login']), FILTER_SANITIZE_STRING);
@@ -27,9 +29,9 @@ switch ($_POST['key']) {
         } elseif (empty($user)) {
             $addUser = $usersRow->addUser($login, $pass, $email);
 
-            if ($addUser = 'signUp') {
+            if ($addUser) {
                 setcookie('user', $login, time() + 3600, '/');
-                $msg['msg'] = $addUser;
+                $msg['msg'] = 'signUp';
                 echo json_encode($msg);
             } else {
                 echo json_encode($msg['msg'] == 'error');
@@ -40,12 +42,12 @@ switch ($_POST['key']) {
         if (!empty($user)) {
             $validateUser = $usersRow->validateUser($login, $pass);
 
-            if ($validateUser == 'signIn') {
+            if ($validateUser) {
                 setcookie('user', $login, time() + 3600, '/');
-                $msg['msg'] = $validateUser;
+                $msg['msg'] = 'signIn';
                 echo json_encode($msg);
-            } elseif ($validateUser == 'error') {
-                $msg['msg'] = $validateUser;
+            } elseif (!$validateUser) {
+                $msg['msg'] = 'error';
                 echo json_encode($msg);
             }
         }

@@ -2,20 +2,18 @@
 
 namespace Abyzs\Spa\Classes;
 
-use Abyzs\Spa\Classes\DB\Connection;
 use Abyzs\Spa\Classes\DB\Database;
 
 class Users
 {
     private Database $pdo;
-    private $msg = [];
 
-    public function __construct()
+    public function __construct(Database $database)
     {
-        $this->pdo = new Database((new Connection())->getConnection());
+        $this->pdo = $database;
     }
 
-    public function addUser(string $login, string $pass, string $email): string
+    public function addUser(string $login, string $pass, string $email): bool
     {
         try {
             $insert = $this->pdo->query("INSERT INTO `users` (login, pass, email)
@@ -26,12 +24,12 @@ class Users
             ]);
 
             if ($insert > 0) {
-                return $this->msg['msg'] = 'signUp';
+                return true;
             }
 
             $this->pdo->dbClose();
         } catch (\PDOException $e) {
-            return $this->msg['msg'] = $e->getMessage();
+            return false;
         }
     }
 
@@ -40,15 +38,15 @@ class Users
         return $this->pdo->query("SELECT `login` FROM users WHERE `login` = :login", ['login' => $login]);
     }
 
-    public function validateUser($login, $pass): string
+    public function validateUser($login, $pass): bool
     {
         $user = $this->pdo->query("SELECT `login`, `pass` FROM users WHERE `login` = :login && `pass` = :pass",
             ['login' => $login, 'pass' => $pass]);
 
         if ($user) {
-            return $this->msg = 'signIn';
+            return true;
         } else {
-            return $this->msg = 'error';
+            return false;
         }
     }
 }

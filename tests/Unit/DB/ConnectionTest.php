@@ -2,20 +2,17 @@
 
 namespace Abyzs\Spa\Unit\DB;
 
-use Abyzs\Spa\Classes\DB\Connection;
 use PHPUnit\Framework\TestCase;
+use Abyzs\Spa\Classes\DB\Connection;
 
 class ConnectionTest extends TestCase
 {
-    private Connection $conn;
-
-    protected function setUp(): void
-    {
-        $this->conn = new Connection();
-    }
+    protected function setUp(): void {}
 
     public function testGetConnection(): void
     {
-        $this->assertInstanceOf(\PDO::class, $this->conn->getConnection());
+        $conn = new Connection();
+
+        $this->assertInstanceOf(\PDO::class, $conn->getConnection());
     }
 }
