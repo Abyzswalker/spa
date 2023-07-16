@@ -58,6 +58,6 @@ class UsersTest extends TestCase
             ->method('query')
             ->willReturn(false);
 
-        $this->assertTrue($this->users->validateUser('login', 'pass'));
+        $this->assertFalse($this->users->validateUser('login', 'pass'));
     }
 }
